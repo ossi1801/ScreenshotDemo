@@ -63,7 +63,8 @@ public class ScreenshotHelper
 
     private static IntPtr GetWindowHandle(string name)
     {
-        var process = Process.GetProcessesByName(name).FirstOrDefault();
+       // var process = Process.GetProcessesByName(name).FirstOrDefault(); //First is not always MainWindowHandle & this can result in a zero pointer
+         var process = Process.GetProcessesByName(name).FirstOrDefault(x=>x.MainWindowHandle != IntPtr.Zero); 
         if (process != null && process.MainWindowHandle != IntPtr.Zero)
             return process.MainWindowHandle;
 
